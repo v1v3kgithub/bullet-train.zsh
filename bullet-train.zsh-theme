@@ -19,16 +19,17 @@ VIRTUAL_ENV_DISABLE_PROMPT=true
 if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
   BULLETTRAIN_PROMPT_ORDER=(
     time
+    date
     status
     custom
     context
     dir
     screen
-    perl
-    ruby
+    #perl
+    #ruby
     virtualenv
-    nvm
-    aws
+    #nvm
+    #aws
     go
     elixir
     git
@@ -71,6 +72,13 @@ if [ ! -n "${BULLETTRAIN_TIME_BG+1}" ]; then
 fi
 if [ ! -n "${BULLETTRAIN_TIME_FG+1}" ]; then
   BULLETTRAIN_TIME_FG=black
+fi
+
+if [ ! -n "${BULLETTRAIN_DATE_BG+1}" ]; then
+  BULLETTRAIN_DATE_BG=black
+fi
+if [ ! -n "${BULLETTRAIN_DATE_FG+1}" ]; then
+  BULLETTRAIN_DATE_FG=green
 fi
 
 # CUSTOM
@@ -587,8 +595,12 @@ prompt_time() {
   if [[ $BULLETTRAIN_TIME_12HR == true ]]; then
     prompt_segment $BULLETTRAIN_TIME_BG $BULLETTRAIN_TIME_FG %D{%r}
   else
-    prompt_segment $BULLETTRAIN_TIME_BG $BULLETTRAIN_TIME_FG %D{%T}
+    prompt_segment $BULLETTRAIN_TIME_BG $BULLETTRAIN_TIME_FG "%D{%T}"
   fi
+}
+
+prompt_date() {
+  prompt_segment $BULLETTRAIN_DATE_BG $BULLETTRAIN_DATE_FG "%D{%a %b %d}"
 }
 
 # Status:
